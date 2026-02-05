@@ -2470,12 +2470,12 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "4336f7f1698a51b543a214bc3cf223b7b466daa4"
+                "reference": "34d4d5d7e76b698c087bea8eb0611ce819e6f92a"
             },
             "require": {
                 "php": "^8.2",
                 "phpunit/phpunit": "^10 || ^11 || ^12",
-                "qase/php-commons": "^2.1.12"
+                "qase/php-commons": "^2.1.13"
             },
             "require-dev": {
                 "pestphp/pest": "^2.0 || ^3.0"
@@ -2525,16 +2525,16 @@
         },
         {
             "name": "qase/php-commons",
-            "version": "2.1.12",
+            "version": "2.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/qase-tms/qase-php-commons.git",
-                "reference": "bf177809b99c6d3bb4dc961ac5661b01919e5e54"
+                "reference": "9a44ce480dd9a51575db6a978f306455a6c4bafd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/qase-tms/qase-php-commons/zipball/bf177809b99c6d3bb4dc961ac5661b01919e5e54",
-                "reference": "bf177809b99c6d3bb4dc961ac5661b01919e5e54",
+                "url": "https://api.github.com/repos/qase-tms/qase-php-commons/zipball/9a44ce480dd9a51575db6a978f306455a6c4bafd",
+                "reference": "9a44ce480dd9a51575db6a978f306455a6c4bafd",
                 "shasum": ""
             },
             "require": {
@@ -2574,9 +2574,9 @@
             ],
             "support": {
                 "issues": "https://github.com/qase-tms/qase-php-commons/issues",
-                "source": "https://github.com/qase-tms/qase-php-commons/tree/v2.1.12"
+                "source": "https://github.com/qase-tms/qase-php-commons/tree/v2.1.13"
             },
-            "time": "2026-01-27T13:30:32+00:00"
+            "time": "2026-02-05T19:04:00+00:00"
         },
         {
             "name": "qase/qase-api-client",

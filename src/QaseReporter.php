@@ -362,14 +362,20 @@ class QaseReporter implements QaseReporterInterface
         }
 
         if (is_string($input)) {
-            $this->testResults[$this->currentKey]->attachments[] = Attachment::createFileAttachment($input);
+            $attachment = $this->createAttachmentFromFile($input);
+            if ($attachment !== null) {
+                $this->testResults[$this->currentKey]->attachments[] = $attachment;
+            }
             return $this;
         }
 
         if (is_array($input)) {
             foreach ($input as $item) {
                 if (is_string($item)) {
-                    $this->testResults[$this->currentKey]->attachments[] = Attachment::createFileAttachment($item);
+                    $attachment = $this->createAttachmentFromFile($item);
+                    if ($attachment !== null) {
+                        $this->testResults[$this->currentKey]->attachments[] = $attachment;
+                    }
                 }
             }
 
@@ -380,12 +386,33 @@ class QaseReporter implements QaseReporterInterface
             $data = (array)$input;
             $this->testResults[$this->currentKey]->attachments[] = Attachment::createContentAttachment(
                 $data['title'] ?? 'attachment',
-                $data['content'] ?? null,
+                $data['content'] ?? '',
                 $data['mime'] ?? null
             );
         }
 
         return $this;
+    }
+
+    /**
+     * Create attachment by reading file content immediately
+     * This ensures the file content is captured even if the file is deleted later
+     */
+    private function createAttachmentFromFile(string $filePath): ?Attachment
+    {
+        if (!file_exists($filePath) || !is_readable($filePath)) {
+            return null;
+        }
+
+        $content = file_get_contents($filePath);
+        if ($content === false) {
+            return null;
+        }
+
+        $fileName = basename($filePath);
+        $mimeType = mime_content_type($filePath) ?: 'application/octet-stream';
+
+        return Attachment::createContentAttachment($fileName, $content, $mimeType);
     }
 
     // =====================================================
