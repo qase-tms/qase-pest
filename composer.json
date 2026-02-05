@@ -1,0 +1,54 @@
+{
+  "name": "qase/pest-reporter",
+  "description": "Qase TMS reporter for Pest PHP testing framework",
+  "homepage": "https://qase.io",
+  "license": "Apache-2.0",
+  "type": "library",
+  "keywords": [
+    "qase",
+    "tms",
+    "reporter",
+    "pest",
+    "testing",
+    "php"
+  ],
+  "authors": [
+    {
+      "name": "Qase Team",
+      "email": "support@qase.io"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "pestphp/pest": "^2.0 || ^3.0",
+    "phpunit/phpunit": "^10 || ^11 || ^12",
+    "qase/php-commons": "^2.1.12"
+  },
+  "autoload": {
+    "psr-4": {
+      "Qase\\PestReporter\\": "src/"
+    },
+    "files": [
+      "src/Autoload.php",
+      "src/functions.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "platform": {
+      "php": "8.1"
+    },
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    },
+    "optimize-autoloader": true,
+    "preferred-install": {
+      "*": "dist"
+    },
+    "sort-packages": true
+  }
+}

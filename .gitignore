@@ -1,0 +1,10 @@
+/vendor/
+/example/vendor/
+/example/build/
+/docs/
+.phpunit.result.cache
+.phpunit.cache/
+*.log
+.idea/
+.vscode/
+.DS_Store
