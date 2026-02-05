@@ -2466,14 +2466,13 @@
         },
         {
             "name": "qase/pest-reporter",
-            "version": "dev-feature/pest-reporter",
+            "version": "1.0.0",
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "178721e7540f91821fdcd8d79eeea981b5492679"
+                "reference": "2ff8312b12fb5f3d5f84cbf73686a449d1df7bad"
             },
             "require": {
-                "pestphp/pest": "^2.0 || ^3.0",
                 "php": "^8.2",
                 "phpunit/phpunit": "^10 || ^11 || ^12",
                 "qase/php-commons": "^2.1.12"
@@ -2492,6 +2491,11 @@
                 "psr-4": {
                     "Tests\\": "tests/"
                 }
+            },
+            "scripts": {
+                "test": [
+                    "pest"
+                ]
             },
             "license": [
                 "Apache-2.0"
