@@ -45,9 +45,14 @@ class TestableQaseReporter
         return $this->invokePrivateMethod('generateParamsHash', [$params]);
     }
 
-    public function extractTestTitle(string $methodName): string
+    public function parsePestMethodName(string $methodName): array
     {
-        return $this->invokePrivateMethod('extractTestTitle', [$methodName]);
+        return $this->invokePrivateMethod('parsePestMethodName', [$methodName]);
+    }
+
+    public function extractSimpleTitle(string $name): string
+    {
+        return $this->invokePrivateMethod('extractSimpleTitle', [$name]);
     }
 
     private function invokePrivateMethod(string $methodName, array $args): mixed
@@ -184,30 +189,49 @@ describe('Data Normalization', function () {
 
     });
 
-    describe('extractTestTitle', function () {
+    describe('parsePestMethodName', function () {
 
-        it('extracts title from Pest method name', function () {
-            $result = reporter()->extractTestTitle('__pest_evaluable_it_tests_array_operations');
+        it('extracts title from simple Pest method name', function () {
+            $result = reporter()->parsePestMethodName('__pest_evaluable_it_tests_array_operations');
 
-            expect($result)->toBe('it tests array operations');
+            expect($result['suites'])->toBe([]);
+            expect($result['title'])->toBe('tests array operations');
         });
 
         it('handles method without pest prefix', function () {
-            $result = reporter()->extractTestTitle('testSomething');
+            $result = reporter()->parsePestMethodName('testSomething');
 
-            expect($result)->toBe('testSomething');
+            expect($result['suites'])->toBe([]);
+            // Classic PHPUnit-style methods are passed through as-is
+            expect($result['title'])->toBe('testSomething');
         });
 
-        it('handles describe blocks in title', function () {
-            $result = reporter()->extractTestTitle('__pest_evaluable_Authentication__→__Login__→_it_logs_in_with_valid_credentials');
+        it('extracts suites from describe blocks', function () {
+            $result = reporter()->parsePestMethodName('__pest_evaluable_Authentication__→__Login__→_it_logs_in_with_valid_credentials');
 
-            expect($result)->toBe('Authentication → Login → it logs in with valid credentials');
+            expect($result['suites'])->toBe(['Authentication', 'Login']);
+            expect($result['title'])->toBe('logs in with valid credentials');
         });
 
-        it('cleans up multiple underscores', function () {
-            $result = reporter()->extractTestTitle('__pest_evaluable_it__has__multiple__underscores');
+        it('extracts single suite from describe block', function () {
+            $result = reporter()->parsePestMethodName('__pest_evaluable_Users__→_it_creates_a_user');
 
-            expect($result)->toBe('it has multiple underscores');
+            expect($result['suites'])->toBe(['Users']);
+            expect($result['title'])->toBe('creates a user');
+        });
+
+        it('cleans up multiple underscores in title', function () {
+            $result = reporter()->parsePestMethodName('__pest_evaluable_it__has__multiple__underscores');
+
+            expect($result['suites'])->toBe([]);
+            expect($result['title'])->toBe('has multiple underscores');
+        });
+
+        it('removes test prefix from title', function () {
+            $result = reporter()->parsePestMethodName('__pest_evaluable_test_something_works');
+
+            expect($result['suites'])->toBe([]);
+            expect($result['title'])->toBe('something works');
         });
 
     });
