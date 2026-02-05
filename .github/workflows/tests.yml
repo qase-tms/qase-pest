@@ -41,7 +41,12 @@ jobs:
             ${{ runner.os }}-php-${{ matrix.php }}-
 
       - name: Install main package dependencies
-        run: composer install --prefer-dist --no-progress
+        run: |
+          composer require pestphp/pest:${{ matrix.pest }} --dev --no-update
+          composer update --prefer-dist --no-progress
+
+      - name: Run unit tests
+        run: ./vendor/bin/pest --colors=always
 
       - name: Update Pest version in example
         working-directory: example
