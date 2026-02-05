@@ -1,0 +1,29 @@
+{
+  "name": "qase/pest-reporter-example",
+  "description": "Example project demonstrating Qase Pest Reporter",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": "^8.1"
+  },
+  "require-dev": {
+    "pestphp/pest": "^3.0",
+    "qase/pest-reporter": "@dev"
+  },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../"
+    }
+  ],
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}

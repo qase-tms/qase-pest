@@ -1,0 +1,22 @@
+{
+  "mode": "report",
+  "fallback": "report",
+  "debug": true,
+  "testops": {
+    "api": {
+      "token": "YOUR_QASE_API_TOKEN",
+      "host": "qase.io"
+    },
+    "project": "DEMO",
+    "run": {
+      "title": "Pest Reporter Example Run",
+      "complete": true
+    }
+  },
+  "report": {
+    "driver": "local",
+    "connection": {
+      "path": "./build/qase-report"
+    }
+  }
+}
