@@ -195,7 +195,7 @@ QASE_MODE=testops ./vendor/bin/pest
 
 ## Requirements
 
-- PHP 8.1+
+- PHP 8.2+
 - Pest 2.0+ or 3.0+
 - PHPUnit 10, 11, or 12
 
