@@ -17,7 +17,7 @@ describe('Authentication', function () {
         it('handles empty username', function () {
             qase()
                 ->caseId(32)
-                ->field('type', 'negative')
+                ->field('type', 'smoke')
                 ->comment('Empty username should be rejected');
             expect('')->toBeEmpty();
         });
