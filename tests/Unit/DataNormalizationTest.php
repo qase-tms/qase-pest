@@ -125,11 +125,11 @@ describe('Data Normalization', function () {
         });
 
         it('converts boolean true to string', function () {
-            expect(reporter()->convertValueToString(true))->toBe('1');
+            expect(reporter()->convertValueToString(true))->toBe('true');
         });
 
-        it('converts boolean false to empty string', function () {
-            expect(reporter()->convertValueToString(false))->toBe('');
+        it('converts boolean false to string', function () {
+            expect(reporter()->convertValueToString(false))->toBe('false');
         });
 
         it('converts array to JSON', function () {
@@ -140,8 +140,12 @@ describe('Data Normalization', function () {
             expect(reporter()->convertValueToString(['key' => 'value']))->toBe('{"key":"value"}');
         });
 
-        it('converts null to empty string', function () {
-            expect(reporter()->convertValueToString(null))->toBe('');
+        it('converts null to "empty"', function () {
+            expect(reporter()->convertValueToString(null))->toBe('empty');
+        });
+
+        it('converts empty string to "empty"', function () {
+            expect(reporter()->convertValueToString(''))->toBe('empty');
         });
 
     });

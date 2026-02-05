@@ -244,16 +244,16 @@ class QaseReporter implements QaseReporterInterface
      * Set a parameter for the current test
      *
      * @param string $name Parameter name
-     * @param string $value Parameter value
+     * @param mixed $value Parameter value (will be converted to string)
      * @return $this
      */
-    public function parameter(string $name, string $value): self
+    public function parameter(string $name, mixed $value): self
     {
         if (!$this->currentKey || !isset($this->testResults[$this->currentKey])) {
             return $this;
         }
 
-        $this->testResults[$this->currentKey]->params[$name] = $value;
+        $this->testResults[$this->currentKey]->params[$name] = $this->convertValueToString($value);
 
         return $this;
     }
@@ -574,22 +574,35 @@ class QaseReporter implements QaseReporterInterface
      */
     private function convertValueToString(mixed $value): string
     {
+        if ($value === null || $value === '') {
+            return 'empty';
+        }
+
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
         if (is_scalar($value)) {
-            return (string)$value;
+            $stringValue = (string)$value;
+            return $stringValue === '' ? 'empty' : $stringValue;
         }
 
         if (is_array($value)) {
+            if (empty($value)) {
+                return 'empty';
+            }
             return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
 
         if (is_object($value)) {
             if (method_exists($value, '__toString')) {
-                return (string)$value;
+                $stringValue = (string)$value;
+                return $stringValue === '' ? 'empty' : $stringValue;
             }
             return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
 
-        return '';
+        return 'empty';
     }
 
     /**

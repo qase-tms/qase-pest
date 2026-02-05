@@ -30,7 +30,7 @@ class NullQaseReporter
         return $this;
     }
 
-    public function parameter(string $name, string $value): self
+    public function parameter(string $name, mixed $value): self
     {
         return $this;
     }
