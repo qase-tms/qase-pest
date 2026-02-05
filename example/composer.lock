@@ -2470,12 +2470,15 @@
             "dist": {
                 "type": "path",
                 "url": "..",
-                "reference": "2ff8312b12fb5f3d5f84cbf73686a449d1df7bad"
+                "reference": "4336f7f1698a51b543a214bc3cf223b7b466daa4"
             },
             "require": {
                 "php": "^8.2",
                 "phpunit/phpunit": "^10 || ^11 || ^12",
                 "qase/php-commons": "^2.1.12"
+            },
+            "require-dev": {
+                "pestphp/pest": "^2.0 || ^3.0"
             },
             "type": "library",
             "autoload": {

@@ -1,13 +1,13 @@
 {
-  "mode": "report",
+  "mode": "testops",
   "fallback": "report",
   "debug": true,
   "testops": {
     "api": {
-      "token": "YOUR_QASE_API_TOKEN",
+      "token": "90ea6c06bbfb606d49aea16f1b5567e95c746f8b6e654a7896c560def911ce5a",
       "host": "qase.io"
     },
-    "project": "DEMO",
+    "project": "DEVX",
     "run": {
       "title": "Pest Reporter Example Run",
       "complete": true
