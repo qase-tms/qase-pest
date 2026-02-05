@@ -61,19 +61,27 @@ class QaseReporter implements QaseReporterInterface
         // Merge parameters: data provider params override static Parameter attributes
         $mergedParams = array_merge($metadata->parameters, $dataProviderParams);
 
+        // Parse Pest method name to extract suites and title
+        $parsedTest = $this->parsePestMethodName($test->methodName());
+
         $testResult = new Result();
 
         if (!empty($metadata->qaseIds)) {
             $testResult->testOpsIds = $metadata->qaseIds;
         }
 
-        if (empty($metadata->suites)) {
-            $suites = explode('\\', $test->className());
-            foreach ($suites as $suite) {
+        // Determine suites: user-defined > parsed from describe blocks > class namespace
+        if (!empty($metadata->suites)) {
+            foreach ($metadata->suites as $suite) {
+                $testResult->relations->addSuite($suite);
+            }
+        } elseif (!empty($parsedTest['suites'])) {
+            foreach ($parsedTest['suites'] as $suite) {
                 $testResult->relations->addSuite($suite);
             }
         } else {
-            foreach ($metadata->suites as $suite) {
+            $suites = explode('\\', $test->className());
+            foreach ($suites as $suite) {
                 $testResult->relations->addSuite($suite);
             }
         }
@@ -83,26 +91,70 @@ class QaseReporter implements QaseReporterInterface
         $testResult->signature = $this->createSignature($test, $metadata->qaseIds, $metadata->suites, $mergedParams);
         $testResult->execution->setThread($this->getThread());
 
-        $testResult->title = $metadata->title ?? $this->extractTestTitle($test->methodName());
+        $testResult->title = $metadata->title ?? $parsedTest['title'];
 
         $this->testResults[$key] = $testResult;
     }
 
     /**
-     * Extract readable test title from Pest's internal method name
+     * Parse Pest method name to extract suites (from describe blocks) and title (from it/test)
      *
-     * Converts "__pest_evaluable_it_tests_array_operations" to "it tests array operations"
+     * Example: "__pest_evaluable_Authentication__→__Login__→_it_logs_in_with_valid_credentials"
+     * Returns: ['suites' => ['Authentication', 'Login'], 'title' => 'logs in with valid credentials']
      *
      * @param string $methodName
+     * @return array{suites: array<string>, title: string}
+     */
+    private function parsePestMethodName(string $methodName): array
+    {
+        $suites = [];
+        $title = $methodName;
+
+        // Remove Pest's internal prefix
+        $cleanName = preg_replace('/^__pest_evaluable_/', '', $methodName);
+
+        // Check if it contains describe block separators (→ or similar patterns)
+        // Pest uses patterns like "__→__" or "` → `" between describe blocks
+        if (preg_match('/[→]/', $cleanName)) {
+            // Split by arrow separator (with surrounding underscores/spaces)
+            $parts = preg_split('/\s*[→]\s*/', str_replace('_', ' ', $cleanName));
+            $parts = array_map('trim', $parts);
+            $parts = array_values(array_filter($parts, fn($p) => $p !== ''));
+
+            if (count($parts) > 1) {
+                // Last part contains the test (it/test), others are suites
+                $lastPart = array_pop($parts);
+                $suites = $parts;
+
+                // Extract title from the last part (remove "it " or "test " prefix)
+                $title = preg_replace('/^(it|test)\s+/i', '', $lastPart);
+            } else {
+                $title = $this->extractSimpleTitle($cleanName);
+            }
+        } else {
+            // Simple case without describe blocks
+            $title = $this->extractSimpleTitle($cleanName);
+        }
+
+        return [
+            'suites' => $suites,
+            'title' => $title,
+        ];
+    }
+
+    /**
+     * Extract simple title from method name (no describe blocks)
+     *
+     * @param string $name
      * @return string
      */
-    private function extractTestTitle(string $methodName): string
+    private function extractSimpleTitle(string $name): string
     {
-        // Remove Pest's internal prefix
-        $title = preg_replace('/^__pest_evaluable_/', '', $methodName);
-
         // Replace underscores with spaces
-        $title = str_replace('_', ' ', $title);
+        $title = str_replace('_', ' ', $name);
+
+        // Remove "it " or "test " prefix
+        $title = preg_replace('/^(it|test)\s+/i', '', $title);
 
         // Clean up multiple spaces
         $title = preg_replace('/\s+/', ' ', $title);
