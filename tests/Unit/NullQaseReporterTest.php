@@ -6,64 +6,69 @@ use Qase\PestReporter\NullQaseReporter;
 
 describe('NullQaseReporter', function () {
 
-    beforeEach(function () {
-        $this->reporter = new NullQaseReporter();
-    });
-
     describe('fluent API methods return $this', function () {
 
         it('caseId returns self', function () {
-            $result = $this->reporter->caseId(1, 2, 3);
+            $reporter = new NullQaseReporter();
+            $result = $reporter->caseId(1, 2, 3);
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
         it('title returns self', function () {
-            $result = $this->reporter->title('Test Title');
+            $reporter = new NullQaseReporter();
+            $result = $reporter->title('Test Title');
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
         it('suite returns self', function () {
-            $result = $this->reporter->suite('Suite1', 'Suite2');
+            $reporter = new NullQaseReporter();
+            $result = $reporter->suite('Suite1', 'Suite2');
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
         it('field returns self', function () {
-            $result = $this->reporter->field('name', 'value');
+            $reporter = new NullQaseReporter();
+            $result = $reporter->field('name', 'value');
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
         it('parameter returns self', function () {
-            $result = $this->reporter->parameter('name', 'value');
+            $reporter = new NullQaseReporter();
+            $result = $reporter->parameter('name', 'value');
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
         it('comment returns self', function () {
-            $result = $this->reporter->comment('Some comment');
+            $reporter = new NullQaseReporter();
+            $result = $reporter->comment('Some comment');
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
         it('attach returns self for string', function () {
-            $result = $this->reporter->attach('/path/to/file');
+            $reporter = new NullQaseReporter();
+            $result = $reporter->attach('/path/to/file');
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
         it('attach returns self for array', function () {
-            $result = $this->reporter->attach(['/path/to/file1', '/path/to/file2']);
+            $reporter = new NullQaseReporter();
+            $result = $reporter->attach(['/path/to/file1', '/path/to/file2']);
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
         it('attach returns self for object', function () {
-            $result = $this->reporter->attach((object)['title' => 'test', 'content' => 'data']);
+            $reporter = new NullQaseReporter();
+            $result = $reporter->attach((object)['title' => 'test', 'content' => 'data']);
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
     });
@@ -71,7 +76,8 @@ describe('NullQaseReporter', function () {
     describe('method chaining', function () {
 
         it('supports full fluent chain', function () {
-            $result = $this->reporter
+            $reporter = new NullQaseReporter();
+            $result = $reporter
                 ->caseId(1)
                 ->title('Test')
                 ->suite('Suite')
@@ -80,7 +86,7 @@ describe('NullQaseReporter', function () {
                 ->comment('Comment')
                 ->attach('/path/to/file');
 
-            expect($result)->toBe($this->reporter);
+            expect($result)->toBe($reporter);
         });
 
     });
