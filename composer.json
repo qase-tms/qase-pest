@@ -21,7 +21,7 @@
   "require": {
     "php": "^8.2",
     "phpunit/phpunit": "^10 || ^11 || ^12",
-    "qase/php-commons": "^2.1.12"
+    "qase/php-commons": "^2.1.13"
   },
   "require-dev": {
     "pestphp/pest": "^2.0 || ^3.0"
