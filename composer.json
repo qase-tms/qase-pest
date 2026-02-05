@@ -20,7 +20,6 @@
   ],
   "require": {
     "php": "^8.2",
-    "pestphp/pest": "^2.0 || ^3.0",
     "phpunit/phpunit": "^10 || ^11 || ^12",
     "qase/php-commons": "^2.1.12"
   },
@@ -37,6 +36,10 @@
     "psr-4": {
       "Tests\\": "tests/"
     }
+  },
+  "version": "1.0.0",
+  "scripts": {
+    "test": "pest"
   },
   "config": {
     "platform": {
