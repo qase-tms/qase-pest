@@ -83,9 +83,31 @@ class QaseReporter implements QaseReporterInterface
         $testResult->signature = $this->createSignature($test, $metadata->qaseIds, $metadata->suites, $mergedParams);
         $testResult->execution->setThread($this->getThread());
 
-        $testResult->title = $metadata->title ?? $test->methodName();
+        $testResult->title = $metadata->title ?? $this->extractTestTitle($test->methodName());
 
         $this->testResults[$key] = $testResult;
+    }
+
+    /**
+     * Extract readable test title from Pest's internal method name
+     *
+     * Converts "__pest_evaluable_it_tests_array_operations" to "it tests array operations"
+     *
+     * @param string $methodName
+     * @return string
+     */
+    private function extractTestTitle(string $methodName): string
+    {
+        // Remove Pest's internal prefix
+        $title = preg_replace('/^__pest_evaluable_/', '', $methodName);
+
+        // Replace underscores with spaces
+        $title = str_replace('_', ' ', $title);
+
+        // Clean up multiple spaces
+        $title = preg_replace('/\s+/', ' ', $title);
+
+        return trim($title);
     }
 
     public function updateStatus(TestMethod $test, string $status, ?string $message = null, ?string $stackTrace = null): void

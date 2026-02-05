@@ -31,7 +31,7 @@ it('demonstrates chained fluent calls', function () {
         ->caseId(10)
         ->title('Chained Fluent API Test')
         ->suite('API', 'Fluent')
-        ->field('type', 'integration')
+        ->field('type', 'smoke')
         ->parameter('env', 'staging')
         ->comment('Testing the fluent API chaining');
 

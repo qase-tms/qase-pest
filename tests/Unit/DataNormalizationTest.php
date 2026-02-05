@@ -45,6 +45,11 @@ class TestableQaseReporter
         return $this->invokePrivateMethod('generateParamsHash', [$params]);
     }
 
+    public function extractTestTitle(string $methodName): string
+    {
+        return $this->invokePrivateMethod('extractTestTitle', [$methodName]);
+    }
+
     private function invokePrivateMethod(string $methodName, array $args): mixed
     {
         $method = $this->reflection->getMethod($methodName);
@@ -175,6 +180,34 @@ describe('Data Normalization', function () {
             $result = reporter()->normalizeDataProviderData(['data' => ['nested' => 'value']]);
 
             expect($result['data'])->toBe('{"nested":"value"}');
+        });
+
+    });
+
+    describe('extractTestTitle', function () {
+
+        it('extracts title from Pest method name', function () {
+            $result = reporter()->extractTestTitle('__pest_evaluable_it_tests_array_operations');
+
+            expect($result)->toBe('it tests array operations');
+        });
+
+        it('handles method without pest prefix', function () {
+            $result = reporter()->extractTestTitle('testSomething');
+
+            expect($result)->toBe('testSomething');
+        });
+
+        it('handles describe blocks in title', function () {
+            $result = reporter()->extractTestTitle('__pest_evaluable_Authentication__→__Login__→_it_logs_in_with_valid_credentials');
+
+            expect($result)->toBe('Authentication → Login → it logs in with valid credentials');
+        });
+
+        it('cleans up multiple underscores', function () {
+            $result = reporter()->extractTestTitle('__pest_evaluable_it__has__multiple__underscores');
+
+            expect($result)->toBe('it has multiple underscores');
         });
 
     });
