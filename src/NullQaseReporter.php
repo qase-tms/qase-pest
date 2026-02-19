@@ -44,4 +44,12 @@ class NullQaseReporter
     {
         return $this;
     }
+
+    public function step(string $action, ?callable $callback = null, ?string $expectedResult = null): self
+    {
+        if ($callback !== null) {
+            $callback();
+        }
+        return $this;
+    }
 }

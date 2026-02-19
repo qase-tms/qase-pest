@@ -140,6 +140,32 @@ class Qase
     }
 
     /**
+     * Add a step to the current test
+     *
+     * @param string $action Step action description
+     * @param callable|null $callback Optional callback to execute as step body
+     * @param string|null $expectedResult Optional expected result description
+     * @return void
+     *
+     * Example:
+     * Qase::step('Open login page', function () { ... });
+     * Qase::step('Verify email sent');
+     * Qase::step('Click login', expectedResult: 'Dashboard loads');
+     */
+    public static function step(string $action, ?callable $callback = null, ?string $expectedResult = null): void
+    {
+        $qr = QaseReporter::getInstanceWithoutInit();
+        if (!$qr) {
+            if ($callback !== null) {
+                $callback();
+            }
+            return;
+        }
+
+        $qr->step($action, $callback, $expectedResult);
+    }
+
+    /**
      * Add attachment to test case
      *
      * @param mixed $input File path, array of file paths, or object with title/content/mime

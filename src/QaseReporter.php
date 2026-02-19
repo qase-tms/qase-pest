@@ -8,6 +8,7 @@ use PHPUnit\Event\Code\TestMethod;
 use Qase\PhpCommons\Interfaces\ReporterInterface;
 use Qase\PhpCommons\Models\Attachment;
 use Qase\PhpCommons\Models\Result;
+use Qase\PhpCommons\Models\Step;
 use Qase\PhpCommons\Utils\Signature;
 use Qase\PestReporter\Attributes\AttributeParserInterface;
 
@@ -18,6 +19,7 @@ class QaseReporter implements QaseReporterInterface
     private AttributeParserInterface $attributeParser;
     private ReporterInterface $reporter;
     private ?string $currentKey = null;
+    private array $stepStack = [];
 
     private function __construct(AttributeParserInterface $attributeParser, ReporterInterface $reporter)
     {
@@ -52,6 +54,7 @@ class QaseReporter implements QaseReporterInterface
     {
         $key = $this->getTestKey($test);
         $this->currentKey = $key;
+        $this->stepStack = [];
 
         $metadata = $this->attributeParser->parseAttribute($test->className(), $test->methodName());
 
@@ -256,6 +259,64 @@ class QaseReporter implements QaseReporterInterface
         );
 
         return $this;
+    }
+
+    /**
+     * Add a step to the current test
+     *
+     * @param string $action Step action description
+     * @param callable|null $callback Optional callback to execute as step body
+     * @param string|null $expectedResult Optional expected result description
+     * @return $this
+     */
+    public function step(string $action, ?callable $callback = null, ?string $expectedResult = null): self
+    {
+        if (!$this->currentKey || !isset($this->testResults[$this->currentKey])) {
+            if ($callback !== null) {
+                $callback();
+            }
+            return $this;
+        }
+
+        $step = new Step();
+        $step->data->setAction($action);
+        if ($expectedResult !== null) {
+            $step->data->setExpectedResult($expectedResult);
+        }
+
+        if ($callback !== null) {
+            $this->stepStack[] = $step;
+            try {
+                $callback();
+                $step->execution->setStatus('passed');
+                $step->execution->finish();
+            } catch (\Throwable $e) {
+                $step->execution->setStatus('failed');
+                $step->execution->finish();
+                array_pop($this->stepStack);
+                $this->addStepToParentOrResult($step);
+                throw $e;
+            }
+            array_pop($this->stepStack);
+        } else {
+            $step->execution->setStatus('passed');
+            $step->execution->finish();
+        }
+
+        $this->addStepToParentOrResult($step);
+
+        return $this;
+    }
+
+    private function addStepToParentOrResult(Step $step): void
+    {
+        if (!empty($this->stepStack)) {
+            $parent = end($this->stepStack);
+            $step->parentId = $parent->id;
+            $parent->steps[] = $step;
+        } else {
+            $this->testResults[$this->currentKey]->steps[] = $step;
+        }
     }
 
     /**
