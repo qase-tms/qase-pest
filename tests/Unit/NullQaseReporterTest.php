@@ -71,6 +71,57 @@ describe('NullQaseReporter', function () {
             expect($result)->toBe($reporter);
         });
 
+        it('step returns self without callback', function () {
+            $reporter = new NullQaseReporter();
+            $result = $reporter->step('Click button');
+
+            expect($result)->toBe($reporter);
+        });
+
+        it('step returns self with callback', function () {
+            $reporter = new NullQaseReporter();
+            $result = $reporter->step('Click button', function () {
+                // step body
+            });
+
+            expect($result)->toBe($reporter);
+        });
+
+        it('step returns self with expectedResult', function () {
+            $reporter = new NullQaseReporter();
+            $result = $reporter->step('Click login', expectedResult: 'Dashboard loads');
+
+            expect($result)->toBe($reporter);
+        });
+
+    });
+
+    describe('step callback execution', function () {
+
+        it('executes callback when provided', function () {
+            $reporter = new NullQaseReporter();
+            $executed = false;
+
+            $reporter->step('Do something', function () use (&$executed) {
+                $executed = true;
+            });
+
+            expect($executed)->toBeTrue();
+        });
+
+        it('supports nested step calls', function () {
+            $reporter = new NullQaseReporter();
+            $innerExecuted = false;
+
+            $reporter->step('Outer step', function () use ($reporter, &$innerExecuted) {
+                $reporter->step('Inner step', function () use (&$innerExecuted) {
+                    $innerExecuted = true;
+                });
+            });
+
+            expect($innerExecuted)->toBeTrue();
+        });
+
     });
 
     describe('method chaining', function () {
@@ -84,7 +135,8 @@ describe('NullQaseReporter', function () {
                 ->field('priority', 'high')
                 ->parameter('browser', 'chrome')
                 ->comment('Comment')
-                ->attach('/path/to/file');
+                ->attach('/path/to/file')
+                ->step('Test step');
 
             expect($result)->toBe($reporter);
         });
