@@ -76,11 +76,12 @@ it('logs in successfully', function () {
         ->suite('Auth', 'Login')
         ->field('priority', 'high')
         ->parameter('browser', 'chrome')
+        ->step('Open login page')
+        ->step('Submit credentials', function () {
+            expect(true)->toBeTrue();
+        })
         ->comment('Testing login functionality')
         ->attach('/path/to/screenshot.png');
-
-    // Your test code
-    expect(true)->toBeTrue();
 });
 ```
 
@@ -111,6 +112,7 @@ it('logs in successfully', function () {
 | `parameter(string $name, string $value)` | Set test parameter |
 | `comment(string $message)` | Add comment |
 | `attach(mixed $input)` | Add attachment |
+| `step(string $action, ?callable $callback, ?string $expectedResult)` | Add test step |
 
 ### Static Facade Methods
 
@@ -123,6 +125,7 @@ it('logs in successfully', function () {
 | `Qase::parameter(string $name, string $value)` | Set test parameter |
 | `Qase::comment(string $message)` | Add comment |
 | `Qase::attach(mixed $input)` | Add attachment |
+| `Qase::step(string $action, ?callable $callback, ?string $expectedResult)` | Add test step |
 
 ## Attachments
 
@@ -146,6 +149,66 @@ qase()->attach((object)[
     'content' => json_encode($response),
     'mime' => 'application/json'
 ]);
+```
+
+## Steps
+
+Add test steps to structure your test execution in Qase TMS.
+
+### Simple Step Markers
+
+```php
+qase()->step('Open login page');
+qase()->step('Enter credentials');
+qase()->step('Click submit');
+```
+
+### Steps with Callbacks
+
+Callbacks provide automatic timing and status tracking (passed/failed):
+
+```php
+qase()->step('Fill login form', function () {
+    // step body — auto-timed, status set to passed/failed
+    expect(true)->toBeTrue();
+});
+```
+
+### Nested Steps
+
+```php
+qase()->step('Login flow', function () {
+    qase()->step('Enter credentials', function () {
+        // nested step
+    });
+    qase()->step('Click submit');
+});
+```
+
+### Steps with Expected Result
+
+```php
+qase()->step('Click login', expectedResult: 'Dashboard page loads');
+```
+
+### Static Facade Steps
+
+```php
+use Qase\PestReporter\Qase;
+
+Qase::step('Open page', function () { /* ... */ });
+Qase::step('Verify footer', expectedResult: 'Footer is visible');
+```
+
+### Steps in Fluent Chain
+
+```php
+qase()
+    ->caseId(123)
+    ->step('Open page')
+    ->step('Fill form', function () { /* ... */ })
+    ->step('Submit', expectedResult: 'Success message shown')
+    ->comment('All steps passed');
 ```
 
 ## Data Providers
