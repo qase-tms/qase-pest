@@ -4,6 +4,7 @@ use Qase\PestReporter\Qase;
 use function Qase\PestReporter\qase;
 
 it('demonstrates simple step markers', function () {
+    qase()->caseId(300);
     qase()->step('Open login page');
     qase()->step('Enter username');
     qase()->step('Enter password');
@@ -13,18 +14,18 @@ it('demonstrates simple step markers', function () {
 });
 
 it('demonstrates steps with callbacks', function () {
+    qase()->caseId(301);
     qase()->step('Open login page', function () {
-        // Navigate to login page
         expect(true)->toBeTrue();
     });
 
     qase()->step('Submit form', function () {
-        // Submit the form
         expect(true)->toBeTrue();
     });
 });
 
 it('demonstrates nested steps', function () {
+    qase()->caseId(302);
     qase()->step('Login flow', function () {
         qase()->step('Enter credentials', function () {
             expect(true)->toBeTrue();
@@ -39,6 +40,7 @@ it('demonstrates nested steps', function () {
 });
 
 it('demonstrates steps with expected results', function () {
+    qase()->caseId(303);
     qase()->step('Click login button', expectedResult: 'Dashboard page loads');
     qase()->step('Open settings', function () {
         expect(true)->toBeTrue();
@@ -46,6 +48,7 @@ it('demonstrates steps with expected results', function () {
 });
 
 it('demonstrates facade steps', function () {
+    qase()->caseId(304);
     Qase::step('Open page', function () {
         expect(true)->toBeTrue();
     });
@@ -56,7 +59,7 @@ it('demonstrates facade steps', function () {
 
 it('demonstrates steps mixed with fluent API', function () {
     qase()
-        ->caseId(100)
+        ->caseId(305)
         ->title('Steps with fluent API')
         ->suite('Integration', 'Steps')
         ->step('Open page')

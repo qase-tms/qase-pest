@@ -3,7 +3,7 @@
 use function Qase\PestReporter\qase;
 
 it('works with data providers', function (int $a, int $b, int $expected) {
-    qase()->caseId(20);
+    qase()->caseId(600);
 
     expect($a + $b)->toBe($expected);
 })->with([
@@ -14,7 +14,7 @@ it('works with data providers', function (int $a, int $b, int $expected) {
 
 it('validates email formats', function (string $email, bool $isValid) {
     qase()
-        ->caseId(21)
+        ->caseId(601)
         ->parameter('email', $email)
         ->parameter('expected', $isValid ? 'valid' : 'invalid');
 
@@ -28,7 +28,7 @@ it('validates email formats', function (string $email, bool $isValid) {
 ]);
 
 it('calculates factorial', function (int $n, int $expected) {
-    qase()->caseId(22);
+    qase()->caseId(602);
 
     $factorial = function (int $n) use (&$factorial): int {
         return $n <= 1 ? 1 : $n * $factorial($n - 1);
@@ -44,7 +44,7 @@ it('calculates factorial', function (int $n, int $expected) {
 
 it('checks string length', function (string $input, int $expectedLength) {
     qase()
-        ->caseId(23)
+        ->caseId(603)
         ->comment("Testing string: '{$input}'");
 
     expect(strlen($input))->toBe($expectedLength);

@@ -1,6 +1,7 @@
 /vendor/
 /example/vendor/
 /example/build/
+/build/
 /docs/
 .phpunit.result.cache
 .phpunit.cache/

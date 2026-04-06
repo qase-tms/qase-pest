@@ -4,7 +4,7 @@ use function Qase\PestReporter\qase;
 
 it('demonstrates fluent API with caseId', function () {
     qase()
-        ->caseId(1)
+        ->caseId(200)
         ->title('Fluent API Test')
         ->comment('This test uses fluent API');
 
@@ -12,13 +12,14 @@ it('demonstrates fluent API with caseId', function () {
 });
 
 it('demonstrates multiple case IDs', function () {
-    qase()->caseId(2, 3, 4);
+    qase()->caseId(201, 202, 203);
 
     expect(1 + 1)->toBe(2);
 });
 
 it('demonstrates suite hierarchy', function () {
     qase()
+        ->caseId(204)
         ->suite('Authentication', 'Login')
         ->field('priority', 'high')
         ->parameter('browser', 'chrome');
@@ -28,7 +29,7 @@ it('demonstrates suite hierarchy', function () {
 
 it('demonstrates chained fluent calls', function () {
     qase()
-        ->caseId(10)
+        ->caseId(205)
         ->title('Chained Fluent API Test')
         ->suite('API', 'Fluent')
         ->field('type', 'smoke')
@@ -39,6 +40,7 @@ it('demonstrates chained fluent calls', function () {
 });
 
 it('demonstrates comment only', function () {
+    qase()->caseId(206);
     qase()->comment('Simple comment for this test');
 
     expect(42)->toBe(42);

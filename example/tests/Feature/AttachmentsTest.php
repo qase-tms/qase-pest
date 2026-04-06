@@ -3,12 +3,11 @@
 use function Qase\PestReporter\qase;
 
 it('attaches a file', function () {
-    // Create temp file for demo
     $tempFile = sys_get_temp_dir() . '/test-attachment.txt';
     file_put_contents($tempFile, 'Test content for attachment');
 
     qase()
-        ->caseId(10)
+        ->caseId(400)
         ->attach($tempFile)
         ->comment('File attached to this test');
 
@@ -19,7 +18,7 @@ it('attaches a file', function () {
 
 it('attaches content directly', function () {
     qase()
-        ->caseId(11)
+        ->caseId(401)
         ->attach((object)[
             'title' => 'response.json',
             'content' => json_encode(['status' => 'ok', 'message' => 'Success']),
@@ -38,7 +37,7 @@ it('attaches multiple files', function () {
     file_put_contents($tempFile2, 'Content 2');
 
     qase()
-        ->caseId(12)
+        ->caseId(402)
         ->attach([$tempFile1, $tempFile2])
         ->comment('Multiple files attached');
 
@@ -51,7 +50,7 @@ it('attaches multiple files', function () {
 
 it('attaches text content', function () {
     qase()
-        ->caseId(13)
+        ->caseId(403)
         ->attach((object)[
             'title' => 'debug.log',
             'content' => "Line 1: Starting test\nLine 2: Test in progress\nLine 3: Test completed",

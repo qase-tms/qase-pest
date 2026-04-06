@@ -35,3 +35,12 @@ it('uses title and field', function () {
 
     expect([1, 2, 3])->toHaveCount(3);
 });
+
+it('uses field with layer', function () {
+    qase()
+        ->caseId(106)
+        ->field('layer', 'e2e')
+        ->field('severity', 'major');
+
+    expect(true)->toBeTrue();
+});
