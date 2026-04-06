@@ -200,7 +200,21 @@ class QaseReporter implements QaseReporterInterface
         $key = $this->getTestKey($test);
         $this->testResults[$key]->execution->finish();
 
-        $this->reporter->addResult($this->testResults[$key]);
+        // Regenerate signature to include testOpsIds and suites set via fluent API
+        $result = $this->testResults[$key];
+        $suites = [];
+        if ($result->relations->suite && !empty($result->relations->suite->data)) {
+            foreach ($result->relations->suite->data as $suiteData) {
+                $suites[] = $suiteData->title;
+            }
+        }
+        $result->signature = Signature::generateSignature(
+            $result->testOpsIds,
+            $suites,
+            $result->params ?: null,
+        );
+
+        $this->reporter->addResult($result);
     }
 
     private function getTestKey(TestMethod $test): string
