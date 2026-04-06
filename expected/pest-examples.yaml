@@ -1,0 +1,788 @@
+run:
+  stats:
+    passed: 50
+    failed: 1
+    skipped: 1
+    broken: 0
+    muted: 0
+    total: 52
+results:
+- title: calculates factorial
+  signature: 602::p::tests::feature::dataprovidertest::{"param0":"7"}::{"param1":"5040"}
+  status: passed
+  testops_ids:
+  - 602
+  params:
+    param0: '7'
+    param1: '5040'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: validates email formats
+  signature: 601::p::tests::feature::dataprovidertest::{"param0":"test@example.com"}::{"param1":"true"}::{"email":"test@example.com"}::{"expected":"valid"}
+  status: passed
+  testops_ids:
+  - 601
+  params:
+    param0: test@example.com
+    param1: 'true'
+    email: test@example.com
+    expected: valid
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: performs basic math
+  signature: 4::p::tests::feature::basictest
+  status: passed
+  testops_ids:
+  - 4
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: BasicTest
+- title: validates email formats
+  signature: 601::p::tests::feature::dataprovidertest::{"param0":"test@"}::{"param1":"false"}::{"email":"test@"}::{"expected":"invalid"}
+  status: passed
+  testops_ids:
+  - 601
+  params:
+    param0: test@
+    param1: 'false'
+    email: test@
+    expected: invalid
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: demonstrates steps with callbacks
+  signature: 301::p::tests::feature::stepstest
+  status: passed
+  testops_ids:
+  - 301
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: StepsTest
+  steps:
+  - data:
+      action: Open login page
+    execution:
+      status: passed
+  - data:
+      action: Submit form
+    execution:
+      status: passed
+- title: passes successfully
+  signature: 1::p::tests::feature::basictest
+  status: passed
+  testops_ids:
+  - 1
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: BasicTest
+- title: checks string length
+  signature: 603::p::tests::feature::dataprovidertest::{"param0":"empty"}::{"param1":"0"}
+  status: passed
+  testops_ids:
+  - 603
+  params:
+    param0: empty
+    param1: '0'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: works with data providers
+  signature: 600::p::tests::feature::dataprovidertest::{"param0":"0"}::{"param1":"0"}::{"param2":"0"}
+  status: passed
+  testops_ids:
+  - 600
+  params:
+    param0: '0'
+    param1: '0'
+    param2: '0'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: Mixed Usage Test
+  signature: 51::p::tests::unit::exampletest
+  status: passed
+  testops_ids:
+  - 51
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Unit
+      - title: ExampleTest
+- title: deletes a user
+  signature: 507::users::crud::delete
+  status: passed
+  testops_ids:
+  - 507
+  relations:
+    suite:
+      data:
+      - title: Users
+      - title: CRUD
+      - title: Delete
+- title: Fluent API Test
+  signature: 200::p::tests::feature::fluentapitest
+  status: passed
+  testops_ids:
+  - 200
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: FluentApiTest
+- title: logs out successfully
+  signature: 503::auth::logout
+  status: passed
+  testops_ids:
+  - 503
+  relations:
+    suite:
+      data:
+      - title: Auth
+      - title: Logout
+- title: uses field with layer
+  signature: 106::p::tests::feature::qaseidtest
+  status: passed
+  testops_ids:
+  - 106
+  fields:
+    layer: e2e
+    severity: major
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: QaseIdTest
+- title: tests array operations
+  signature: 53::unit::arrays
+  status: passed
+  testops_ids:
+  - 53
+  fields:
+    complexity: simple
+  relations:
+    suite:
+      data:
+      - title: Unit
+      - title: Arrays
+- title: Custom title via fluent API
+  signature: 105::p::tests::feature::qaseidtest
+  status: passed
+  testops_ids:
+  - 105
+  fields:
+    description: This is a test with custom field
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: QaseIdTest
+- title: attaches multiple files
+  signature: 402::p::tests::feature::attachmentstest
+  status: passed
+  testops_ids:
+  - 402
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: AttachmentsTest
+  attachments:
+  - file_name: attachment1.txt
+    mime_type: text/plain
+  - file_name: attachment2.txt
+    mime_type: text/plain
+- title: creates a new user
+  signature: 505::users::crud::create
+  status: passed
+  testops_ids:
+  - 505
+  relations:
+    suite:
+      data:
+      - title: Users
+      - title: CRUD
+      - title: Create
+- title: checks string length
+  signature: 603::p::tests::feature::dataprovidertest::{"param0":"a"}::{"param1":"1"}
+  status: passed
+  testops_ids:
+  - 603
+  params:
+    param0: a
+    param1: '1'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: demonstrates comment only
+  signature: 206::p::tests::feature::fluentapitest
+  status: passed
+  testops_ids:
+  - 206
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: FluentApiTest
+- title: Steps with fluent API
+  signature: 305::integration::steps
+  status: passed
+  testops_ids:
+  - 305
+  relations:
+    suite:
+      data:
+      - title: Integration
+      - title: Steps
+  steps:
+  - data:
+      action: Open page
+    execution:
+      status: passed
+  - data:
+      action: Fill form
+    execution:
+      status: passed
+  - data:
+      action: Submit
+      expected_result: Form submitted
+    execution:
+      status: passed
+- title: demonstrates nested steps
+  signature: 302::p::tests::feature::stepstest
+  status: passed
+  testops_ids:
+  - 302
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: StepsTest
+  steps:
+  - data:
+      action: Login flow
+    execution:
+      status: passed
+    steps:
+    - data:
+        action: Enter credentials
+      execution:
+        status: passed
+    - data:
+        action: Click submit
+      execution:
+        status: passed
+  - data:
+      action: Verify dashboard
+    execution:
+      status: passed
+    steps:
+    - data:
+        action: Check welcome message
+      execution:
+        status: passed
+    - data:
+        action: Check navigation menu
+      execution:
+        status: passed
+- title: demonstrates facade steps
+  signature: 304::p::tests::feature::stepstest
+  status: passed
+  testops_ids:
+  - 304
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: StepsTest
+  steps:
+  - data:
+      action: Open page
+    execution:
+      status: passed
+  - data:
+      action: Verify content
+    execution:
+      status: passed
+  - data:
+      action: Check footer
+      expected_result: Footer is visible
+    execution:
+      status: passed
+- title: attaches a file
+  signature: 400::p::tests::feature::attachmentstest
+  status: passed
+  testops_ids:
+  - 400
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: AttachmentsTest
+  attachments:
+  - file_name: test-attachment.txt
+    mime_type: text/plain
+- title: demonstrates multiple case IDs
+  signature: 201-202-203::p::tests::feature::fluentapitest
+  status: passed
+  testops_ids:
+  - 201
+  - 202
+  - 203
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: FluentApiTest
+- title: validates email formats
+  signature: 601::p::tests::feature::dataprovidertest::{"param0":"invalid-email"}::{"param1":"false"}::{"email":"invalid-email"}::{"expected":"invalid"}
+  status: passed
+  testops_ids:
+  - 601
+  params:
+    param0: invalid-email
+    param1: 'false'
+    email: invalid-email
+    expected: invalid
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: attaches content directly
+  signature: 401::p::tests::feature::attachmentstest
+  status: passed
+  testops_ids:
+  - 401
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: AttachmentsTest
+  attachments:
+  - file_name: response.json
+    mime_type: application/json
+- title: is a simple unit test
+  signature: 52::unit::math
+  status: passed
+  testops_ids:
+  - 52
+  relations:
+    suite:
+      data:
+      - title: Unit
+      - title: Math
+- title: demonstrates steps with expected results
+  signature: 303::p::tests::feature::stepstest
+  status: passed
+  testops_ids:
+  - 303
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: StepsTest
+  steps:
+  - data:
+      action: Click login button
+      expected_result: Dashboard page loads
+    execution:
+      status: passed
+  - data:
+      action: Open settings
+      expected_result: Settings page is displayed
+    execution:
+      status: passed
+- title: calculates factorial
+  signature: 602::p::tests::feature::dataprovidertest::{"param0":"1"}::{"param1":"1"}
+  status: passed
+  testops_ids:
+  - 602
+  params:
+    param0: '1'
+    param1: '1'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: calculates factorial
+  signature: 602::p::tests::feature::dataprovidertest::{"param0":"5"}::{"param1":"120"}
+  status: passed
+  testops_ids:
+  - 602
+  params:
+    param0: '5'
+    param1: '120'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: checks string length
+  signature: 603::p::tests::feature::dataprovidertest::{"hello":"5"}
+  status: passed
+  testops_ids:
+  - 603
+  params:
+    hello: '5'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: combines caseId with suite and field
+  signature: 104::attributes::priority
+  status: passed
+  testops_ids:
+  - 104
+  fields:
+    severity: critical
+  relations:
+    suite:
+      data:
+      - title: Attributes
+      - title: Priority
+- title: Chained Fluent API Test
+  signature: 205::api::fluent::{"env":"staging"}
+  status: passed
+  testops_ids:
+  - 205
+  fields:
+    type: smoke
+  params:
+    env: staging
+  relations:
+    suite:
+      data:
+      - title: API
+      - title: Fluent
+- title: is skipped
+  signature: p::tests::feature::basictest
+  status: skipped
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: BasicTest
+- title: calculates factorial
+  signature: 602::p::tests::feature::dataprovidertest::{"param0":"0"}::{"param1":"1"}
+  status: passed
+  testops_ids:
+  - 602
+  params:
+    param0: '0'
+    param1: '1'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: validates email formats
+  signature: 601::p::tests::feature::dataprovidertest::{"param0":"user.name@domain.org"}::{"param1":"true"}::{"email":"user.name@domain.org"}::{"expected":"valid"}
+  status: passed
+  testops_ids:
+  - 601
+  params:
+    param0: user.name@domain.org
+    param1: 'true'
+    email: user.name@domain.org
+    expected: valid
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: works with data providers
+  signature: 600::p::tests::feature::dataprovidertest::{"param0":"2"}::{"param1":"2"}::{"param2":"4"}
+  status: passed
+  testops_ids:
+  - 600
+  params:
+    param0: '2'
+    param1: '2'
+    param2: '4'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: works with strings
+  signature: 5::p::tests::feature::basictest
+  status: passed
+  testops_ids:
+  - 5
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: BasicTest
+- title: updates user profile
+  signature: 506::users::crud::update
+  status: passed
+  testops_ids:
+  - 506
+  relations:
+    suite:
+      data:
+      - title: Users
+      - title: CRUD
+      - title: Update
+- title: demonstrates suite hierarchy
+  signature: 204::authentication::login::{"browser":"chrome"}
+  status: passed
+  testops_ids:
+  - 204
+  fields:
+    priority: high
+  params:
+    browser: chrome
+  relations:
+    suite:
+      data:
+      - title: Authentication
+      - title: Login
+- title: logs in with valid credentials
+  signature: 500::authentication::login
+  status: passed
+  testops_ids:
+  - 500
+  relations:
+    suite:
+      data:
+      - title: Authentication
+      - title: Login
+- title: rejects invalid credentials
+  signature: 501::authentication::login
+  status: passed
+  testops_ids:
+  - 501
+  relations:
+    suite:
+      data:
+      - title: Authentication
+      - title: Login
+- title: Test with single QaseId
+  signature: 100::p::tests::feature::qaseidtest
+  status: passed
+  testops_ids:
+  - 100
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: QaseIdTest
+- title: Static Facade Test
+  signature: 50::p::tests::unit::exampletest
+  status: passed
+  testops_ids:
+  - 50
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Unit
+      - title: ExampleTest
+- title: fails intentionally
+  signature: 2::p::tests::feature::basictest
+  status: failed
+  testops_ids:
+  - 2
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: BasicTest
+- title: checks string length
+  signature: 603::p::tests::feature::dataprovidertest::{"param0":"test string"}::{"param1":"11"}
+  status: passed
+  testops_ids:
+  - 603
+  params:
+    param0: test string
+    param1: '11'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
+- title: handles empty username
+  signature: 502::authentication::login
+  status: passed
+  testops_ids:
+  - 502
+  fields:
+    type: smoke
+  relations:
+    suite:
+      data:
+      - title: Authentication
+      - title: Login
+- title: uses multiple QaseIds
+  signature: 101-102-103::attributes
+  status: passed
+  testops_ids:
+  - 101
+  - 102
+  - 103
+  relations:
+    suite:
+      data:
+      - title: Attributes
+- title: clears session on logout
+  signature: 504::auth::logout::session
+  status: passed
+  testops_ids:
+  - 504
+  relations:
+    suite:
+      data:
+      - title: Auth
+      - title: Logout
+      - title: Session
+- title: demonstrates simple step markers
+  signature: 300::p::tests::feature::stepstest
+  status: passed
+  testops_ids:
+  - 300
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: StepsTest
+  steps:
+  - data:
+      action: Open login page
+    execution:
+      status: passed
+  - data:
+      action: Enter username
+    execution:
+      status: passed
+  - data:
+      action: Enter password
+    execution:
+      status: passed
+  - data:
+      action: Click login
+    execution:
+      status: passed
+- title: attaches text content
+  signature: 403::p::tests::feature::attachmentstest
+  status: passed
+  testops_ids:
+  - 403
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: AttachmentsTest
+  attachments:
+  - file_name: debug.log
+    mime_type: text/plain
+- title: works with data providers
+  signature: 600::p::tests::feature::dataprovidertest::{"param0":"1"}::{"param1":"1"}::{"param2":"2"}
+  status: passed
+  testops_ids:
+  - 600
+  params:
+    param0: '1'
+    param1: '1'
+    param2: '2'
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: DataProviderTest
