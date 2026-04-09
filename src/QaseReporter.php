@@ -90,6 +90,7 @@ class QaseReporter implements QaseReporterInterface
         }
 
         $testResult->fields = $metadata->fields;
+        $testResult->tags = $metadata->tags;
         $testResult->params = $mergedParams;
         $testResult->signature = $this->createSignature($test, $metadata->qaseIds, $metadata->suites, $mergedParams);
         $testResult->execution->setThread($this->getThread());
@@ -385,6 +386,26 @@ class QaseReporter implements QaseReporterInterface
         }
 
         $this->testResults[$this->currentKey]->fields[$name] = $value;
+
+        return $this;
+    }
+
+    /**
+     * Add tags to the current test
+     *
+     * @param string ...$tags Tag names
+     * @return $this
+     */
+    public function tag(string ...$tags): self
+    {
+        if (!$this->currentKey || !isset($this->testResults[$this->currentKey])) {
+            return $this;
+        }
+
+        $this->testResults[$this->currentKey]->tags = array_merge(
+            $this->testResults[$this->currentKey]->tags,
+            $tags
+        );
 
         return $this;
     }

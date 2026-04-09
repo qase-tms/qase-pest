@@ -30,6 +30,11 @@ class NullQaseReporter
         return $this;
     }
 
+    public function tag(string ...$tags): self
+    {
+        return $this;
+    }
+
     public function parameter(string $name, mixed $value): self
     {
         return $this;

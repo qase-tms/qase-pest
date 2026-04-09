@@ -44,3 +44,11 @@ it('uses field with layer', function () {
 
     expect(true)->toBeTrue();
 });
+
+it('uses tags', function () {
+    qase()
+        ->caseId(107)
+        ->tag('smoke', 'regression');
+
+    expect(true)->toBeTrue();
+});

@@ -120,6 +120,25 @@ class Qase
     }
 
     /**
+     * Add tags to the current test
+     *
+     * @param string ...$tags Tag names
+     * @return void
+     *
+     * Example:
+     * Qase::tag('smoke', 'regression');
+     */
+    public static function tag(string ...$tags): void
+    {
+        $qr = QaseReporter::getInstanceWithoutInit();
+        if (!$qr) {
+            return;
+        }
+
+        $qr->tag(...$tags);
+    }
+
+    /**
      * Set a parameter for the current test
      *
      * @param string $name Parameter name

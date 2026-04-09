@@ -21,7 +21,7 @@
   "require": {
     "php": "^8.2",
     "phpunit/phpunit": "^10 || ^11 || ^12",
-    "qase/php-commons": "^2.1.17"
+    "qase/php-commons": "^2.1.18"
   },
   "require-dev": {
     "pestphp/pest": "^2.0 || ^3.0"
@@ -40,7 +40,7 @@
       "Tests\\": "tests/"
     }
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "test": "pest"
   },
