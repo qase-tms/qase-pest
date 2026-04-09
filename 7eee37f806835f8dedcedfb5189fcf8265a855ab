@@ -1,0 +1,23 @@
+expected/pest-examples.yaml
+  5a5b994b12f18d0f 794
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.6",
+  "base_commit_sha": "7eee37f806835f8dedcedfb5189fcf8265a855ab",
+  "prompts": {
+    "5a5b994b12f18d0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "389bcca0-b191-4168-99c9-88ce7e8f955c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 3,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
