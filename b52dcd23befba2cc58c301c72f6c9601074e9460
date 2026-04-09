@@ -1,0 +1,47 @@
+src/Qase.php
+  5a5b994b12f18d0f 123-140
+tests/Unit/TagsTest.php
+  5a5b994b12f18d0f 1-46
+example/tests/Feature/QaseIdTest.php
+  5a5b994b12f18d0f 47-54
+expected/pest-examples.yaml
+  5a5b994b12f18d0f 3,8,789-803
+composer.json
+  5a5b994b12f18d0f 24,43
+src/Attributes/TagsAttributeInterface.php
+  5a5b994b12f18d0f 1-11
+tests/Unit/ClassTagsFixture.php
+  5a5b994b12f18d0f 1-14
+src/Attributes/Tags.php
+  5a5b994b12f18d0f 1-27
+src/Models/Metadata.php
+  5a5b994b12f18d0f 12
+src/Attributes/AttributeParser.php
+  5a5b994b12f18d0f 86-89
+src/QaseReporter.php
+  5a5b994b12f18d0f 93,394-412
+src/NullQaseReporter.php
+  5a5b994b12f18d0f 33-37
+tests/Unit/TagsFixture.php
+  5a5b994b12f18d0f 1-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "b52dcd23befba2cc58c301c72f6c9601074e9460",
+  "prompts": {
+    "5a5b994b12f18d0f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "389bcca0-b191-4168-99c9-88ce7e8f955c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "Dmitrii Gridnev",
+      "messages": [],
+      "total_additions": 190,
+      "total_deletions": 4,
+      "accepted_lines": 190,
+      "overriden_lines": 0
+    }
+  }
+}
