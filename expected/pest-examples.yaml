@@ -1,11 +1,11 @@
 run:
   stats:
-    passed: 50
+    passed: 51
     failed: 1
     skipped: 1
     broken: 0
     muted: 0
-    total: 52
+    total: 53
 results:
 - title: calculates factorial
   signature: 602::p::tests::feature::dataprovidertest::{"param0":"7"}::{"param1":"5040"}
@@ -786,3 +786,16 @@ results:
       - title: Tests
       - title: Feature
       - title: DataProviderTest
+- title: uses tags
+  signature: 107::p::tests::feature::qaseidtest
+  status: passed
+  testops_ids:
+  - 107
+  tags: smoke,regression
+  relations:
+    suite:
+      data:
+      - title: P
+      - title: Tests
+      - title: Feature
+      - title: QaseIdTest

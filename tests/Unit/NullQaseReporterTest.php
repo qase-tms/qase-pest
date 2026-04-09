@@ -94,6 +94,13 @@ describe('NullQaseReporter', function () {
             expect($result)->toBe($reporter);
         });
 
+        it('tag returns self', function () {
+            $reporter = new NullQaseReporter();
+            $result = $reporter->tag('smoke');
+
+            expect($result)->toBe($reporter);
+        });
+
     });
 
     describe('step callback execution', function () {
@@ -136,7 +143,8 @@ describe('NullQaseReporter', function () {
                 ->parameter('browser', 'chrome')
                 ->comment('Comment')
                 ->attach('/path/to/file')
-                ->step('Test step');
+                ->step('Test step')
+                ->tag('smoke');
 
             expect($result)->toBe($reporter);
         });

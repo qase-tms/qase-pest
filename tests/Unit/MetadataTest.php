@@ -71,4 +71,17 @@ describe('Metadata', function () {
         expect($metadata->fields)->toBe(['priority' => 'high']);
     });
 
+    it('initializes with empty tags array', function () {
+        $metadata = new Metadata();
+
+        expect($metadata->tags)->toBe([]);
+    });
+
+    it('allows setting tags', function () {
+        $metadata = new Metadata();
+        $metadata->tags = ['smoke', 'regression'];
+
+        expect($metadata->tags)->toBe(['smoke', 'regression']);
+    });
+
 });
