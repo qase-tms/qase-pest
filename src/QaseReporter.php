@@ -119,9 +119,9 @@ class QaseReporter implements QaseReporterInterface
 
         // Check if it contains describe block separators (→ or similar patterns)
         // Pest uses patterns like "__→__" or "` → `" between describe blocks
-        if (preg_match('/[→]/', $cleanName)) {
-            // Split by arrow separator (with surrounding underscores/spaces)
-            $parts = preg_split('/\s*[→]\s*/', str_replace('_', ' ', $cleanName));
+        if (str_contains($cleanName, '→')) {
+            // Without the u modifier "→" is matched byte-wise and splits other \xE2-prefixed characters (—, …, ’)
+            $parts = preg_split('/\s*→\s*/u', str_replace('_', ' ', $cleanName));
             $parts = array_map('trim', $parts);
             $parts = array_values(array_filter($parts, fn($p) => $p !== ''));
 
