@@ -119,9 +119,9 @@ class QaseReporter implements QaseReporterInterface
 
         // Check if it contains describe block separators (→ or similar patterns)
         // Pest uses patterns like "__→__" or "` → `" between describe blocks
-        if (preg_match('/[→]/', $cleanName)) {
-            // Split by arrow separator (with surrounding underscores/spaces)
-            $parts = preg_split('/\s*[→]\s*/', str_replace('_', ' ', $cleanName));
+        if (str_contains($cleanName, '→')) {
+            // Without the u modifier "→" is matched byte-wise and splits other \xE2-prefixed characters (—, …, ’)
+            $parts = preg_split('/\s*→\s*/u', str_replace('_', ' ', $cleanName));
             $parts = array_map('trim', $parts);
             $parts = array_values(array_filter($parts, fn($p) => $p !== ''));
 
@@ -771,7 +771,7 @@ class QaseReporter implements QaseReporterInterface
      */
     private function convertValueToString(mixed $value): string
     {
-        if ($value === null || $value === '') {
+        if ($value === null) {
             return 'empty';
         }
 
@@ -780,8 +780,7 @@ class QaseReporter implements QaseReporterInterface
         }
 
         if (is_scalar($value)) {
-            $stringValue = (string)$value;
-            return $stringValue === '' ? 'empty' : $stringValue;
+            return $this->nonBlankOrEmpty((string)$value);
         }
 
         if (is_array($value)) {
@@ -793,13 +792,18 @@ class QaseReporter implements QaseReporterInterface
 
         if (is_object($value)) {
             if (method_exists($value, '__toString')) {
-                $stringValue = (string)$value;
-                return $stringValue === '' ? 'empty' : $stringValue;
+                return $this->nonBlankOrEmpty((string)$value);
             }
             return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         }
 
         return 'empty';
+    }
+
+    // The API trims params, so a whitespace-only value arrives blank and fails the whole batch with a 422
+    private function nonBlankOrEmpty(string $value): string
+    {
+        return trim($value) === '' ? 'empty' : $value;
     }
 
     /**

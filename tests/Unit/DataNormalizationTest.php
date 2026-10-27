@@ -158,6 +158,31 @@ describe('Data Normalization', function () {
             expect(reporter()->convertValueToString(''))->toBe('empty');
         });
 
+        it('converts whitespace-only string to "empty"', function (string $value) {
+            expect(reporter()->convertValueToString($value))->toBe('empty');
+        })->with(['   ', "\t", "\n", " \t\r\n "]);
+
+        it('keeps surrounding whitespace of a non-blank string', function () {
+            expect(reporter()->convertValueToString('  a  '))->toBe('  a  ');
+        });
+
+        it('converts whitespace-only Stringable to "empty"', function () {
+            $value = new class {
+                public function __toString(): string
+                {
+                    return '   ';
+                }
+            };
+
+            expect(reporter()->convertValueToString($value))->toBe('empty');
+        });
+
+        it('converts whitespace-only dataset values to a non-blank param', function () {
+            $result = reporter()->normalizeDataProviderData([null, '', '   ']);
+
+            expect($result)->toBe(['param0' => 'empty', 'param1' => 'empty', 'param2' => 'empty']);
+        });
+
     });
 
     describe('normalizeDataProviderData', function () {
@@ -232,6 +257,21 @@ describe('Data Normalization', function () {
 
             expect($result['suites'])->toBe([]);
             expect($result['title'])->toBe('something works');
+        });
+
+        it('keeps multi-byte characters intact in a title without describe blocks', function (string $char) {
+            $result = reporter()->parsePestMethodName("__pest_evaluable_it_issues_a_challenge_{$char}_OTP_emailed");
+
+            expect($result['suites'])->toBe([]);
+            expect($result['title'])->toBe("issues a challenge {$char} OTP emailed");
+            expect(mb_check_encoding($result['title'], 'UTF-8'))->toBeTrue();
+        })->with(['—', '…', '’', '“', '”']);
+
+        it('keeps multi-byte characters intact in suites and title inside describe blocks', function () {
+            $result = reporter()->parsePestMethodName('__pest_evaluable_Auth_—_2FA__→_it_issues_a_challenge_—_OTP_emailed');
+
+            expect($result['suites'])->toBe(['Auth — 2FA']);
+            expect($result['title'])->toBe('issues a challenge — OTP emailed');
         });
 
     });
