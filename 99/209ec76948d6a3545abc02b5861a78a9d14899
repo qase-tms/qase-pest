@@ -1,0 +1,19 @@
+composer.json
+  s_796b29fc5b8e23::t_108e2616417df4 43
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "99209ec76948d6a3545abc02b5861a78a9d14899",
+  "prompts": {},
+  "sessions": {
+    "s_796b29fc5b8e23": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5774f0f0-a977-4639-88a1-b9f8bef6b07b",
+        "model": "unknown"
+      },
+      "human_author": "Dmitrii Gridnev <dgridnev@qase.io>"
+    }
+  }
+}
