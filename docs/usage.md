@@ -506,6 +506,8 @@ Create `qase.config.json` in your project root:
 }
 ```
 
+If your workspace is on the EU cluster (you open Qase at `app-eu.qase.io`), set `host` to `eu.qase.io`. The default, `qase.io`, is the US cluster.
+
 ### 3. Environment Variables
 
 Alternatively, use environment variables:
@@ -513,6 +515,7 @@ Alternatively, use environment variables:
 ```bash
 QASE_MODE=testops
 QASE_TESTOPS_API_TOKEN=your_token
+QASE_TESTOPS_API_HOST=qase.io # eu.qase.io for the EU cluster
 QASE_TESTOPS_PROJECT=PROJECT_CODE
 ```
 
